@@ -1,0 +1,263 @@
+telegram_chatbot/
+│
+├── main.py                     # Script principal que ejecuta el chatbot.
+│
+├── settings.py                 # Configuraciones globales, tokens y rutas a archivos.
+│
+├── bot/
+│   ├── __init__.py             # Hace que bot sea un módulo Python.
+│   ├── bot.py                  # Funciones relacionadas con Telegram Bot (envío de mensajes, etc.).
+│   ├── archiver.py             # Funciones para archivar historiales de chat.
+│   ├── processing.py           # Funciones para procesar la respuesta y manejar la sesión de chat.
+│   └── utils.py                # Funciones utilitarias (limpieza de pantalla, conversión de tiempo, etc.).
+│
+├── models/
+│   ├── __init__.py             # Hace que models sea un módulo Python.
+│   └── gpt_handler.py          # Funciones para manejar y comunicarse con los modelos GPT.
+│
+├── data/
+│   └── context_window_telegram.json  # Historial de chat y otra información persistente.
+│   
+└── .env                        # Archivo .env para almacenar variables de entorno.
+
+
+#main.py
+import asyncio
+from bot.processing import iniciar_sesion_bot
+
+# Función asincrónica main, que inicia todo el proceso del chatbot
+async def main():
+    # Aquí llamamos a la función que manejará la lógica de inicio de la sesión del bot
+    # y el procesamiento de los mensajes.
+    await iniciar_sesion_bot()
+
+# Verifica si el script es el módulo principal que se ejecuta y, en ese caso, inicia la corutina principal.
+if __name__ == '__main__':
+    asyncio.run(main())
+
+
+# settings.py
+import os
+from dotenv import load_dotenv
+
+# Carga las variables de entorno desde un archivo .env
+load_dotenv()
+
+# Configuraciones para el Bot de Telegram
+TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+
+# Rutas a archivos y directorios
+CHAT_HISTORY_PATH = 'data/context_window_telegram.json'
+MODEL_PATH = 'models/'  # Ejemplo de directorio para almacenar modelos
+GPT_MODEL_NAME = "mistral-7b-openorca.Q4_0.gguf"
+
+
+# bot/__init__.py
+"""Package for handling Telegram bot interactions and chat archiving."""
+
+
+
+#bot/archiver.py
+import json
+import os
+from settings import CHAT_HISTORY_PATH
+from bot.utils import datetime_to_unixtime
+from telegram import Update
+
+def cargar_datos_existentes():
+    """Carga el historial de chats y la información de los usuarios desde un archivo JSON."""
+    if os.path.exists(CHAT_HISTORY_PATH) and os.path.getsize(CHAT_HISTORY_PATH) > 0:
+        with open(CHAT_HISTORY_PATH, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    else:
+        return {"chat_histories": {}, "user_info": {}}
+
+def guardar_mensaje(update: Update):
+    """Guarda un mensaje recibido en el historial de chat."""
+    data_existente = cargar_datos_existentes()
+    chat_histories = data_existente.get("chat_histories", {})
+    user_info = data_existente.get("user_info", {})
+
+    chat_id = str(update.message.chat_id)
+    text = update.message.text
+    user = update.message.from_user
+
+    # Podemos guardar la fecha y hora del mensaje, su contenido y el id de actualización
+    mensaje = {
+        "role": "user",
+        "content": text,
+        "update_id": update.update_id,
+        "unixtime": datetime_to_unixtime(update.message.date)
+    }
+
+    if chat_id not in chat_histories:
+        chat_histories[chat_id] = []
+    
+    # Evitamos duplicados asegurándonos de que no exista un mensaje con el mismo update_id
+    if not any(m["update_id"] == update.update_id for m in chat_histories[chat_id]):
+        chat_histories[chat_id].append(mensaje)
+
+    # Almacenamos o actualizamos la información del usuario
+    user_info[user.id] = {
+        "username": user.username,
+        "first_name": user.first_name,
+        "last_name": user.last_name
+    }
+
+    # Escribimos los datos actualizados de nuevo al archivo JSON
+    with open(CHAT_HISTORY_PATH, "w", encoding="utf-8") as file:
+        json.dump({
+            "chat_histories": chat_histories,
+            "user_info": user_info
+        }, file, indent=4, ensure_ascii=False)
+
+# Puedes añadir otras funciones que manipulen el historial de chats según sea necesario.
+
+
+#bot/bot.py
+from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext
+from telegram import Update
+from settings import TELEGRAM_TOKEN
+
+class TelegramBot:
+    def __init__(self):
+        self.updater = Updater(token=TELEGRAM_TOKEN, use_context=True)
+        self.dispatcher = self.updater.dispatcher
+        self._setup_handlers()
+
+    def _setup_handlers(self):
+        """
+        Private method to specify handlers for different types of Telegram updates.
+        """
+        start_handler = CommandHandler('start', self.start)
+
+        self.dispatcher.add_handler(start_handler)
+
+    def start(self, update: Update, context: CallbackContext):
+        """
+        Start command handler function.
+        """
+        update.message.reply_text('Hola! Soy tu bot de chat. ¿En qué puedo ayudarte hoy?')
+
+    def receive_message(self, update: Update, context: CallbackContext):
+        """
+        Handler function for receiving a message.
+        """
+        # Aquí podría ir la lógica para procesar el mensaje recibido.
+        # Por ejemplo, podríamos invocar nuestra API de GPT-4 para obtener una
+        # respuesta y enviarla al usuario.
+        text = update.message.text
+        update.message.reply_text(f"Recibí tu mensaje: {text}")
+
+    def start_polling(self):
+        # Start the Bot
+        self.updater.start_polling()
+
+if __name__ == '__main__':
+    # Instanciamos el bot y comenzamos a escuchar mensajes.
+    bot = TelegramBot()
+    bot.start_polling()
+
+
+# bot/processing.py
+from models.gpt_handler import GPTHandler
+from bot.bot import TelegramBot
+from bot.archiver import guardar_mensaje, cargar_datos_existentes
+from settings import CHAT_HISTORY_PATH
+
+# Suponemos que `GPTHandler` tiene un método `generate_response(prompt)`
+# que devuelve una respuesta a partir de un prompt.
+gpt_handler = GPTHandler()
+
+async def procesar_mensaje_entrante(update):
+    # Aquí procesaríamos el mensaje entrante y generaríamos una respuesta.
+    # Primero, guardamos el mensaje entrante usando `guardar_mensaje`.
+    guardar_mensaje(update)
+    
+    # Generamos el prompt para el modelo GPT a partir del mensaje recibido y el historial.
+    chat_id = update.message.chat_id
+    data_existente = cargar_datos_existentes()
+    chat_histories = data_existente['chat_histories']
+    mensajes_previos = chat_histories.get(chat_id, [])
+    prompt = " ".join(mensaje['content'] for mensaje in mensajes_previos)
+    prompt += " " + update.message.text
+    
+    # Utilizamos el modelo GPT para generar una respuesta.
+    respuesta = gpt_handler.generate_response(prompt)
+    
+    # Enviamos la respuesta generada al chat correspondiente.
+    bot = TelegramBot()
+    await bot.send_message(chat_id, text=respuesta)
+
+async def iniciar_sesion_bot():
+    # Iniciar la sesión del bot y entrar en el bucle de procesamiento de mensajes.
+    bot = TelegramBot()
+    while True:
+        # Obtener las últimas actualizaciones con TelegramBot
+        updates = await bot.get_updates()
+        
+        for update in updates:
+            await procesar_mensaje_entrante(update)
+        
+        # Aquí podríamos añadir lógica para manejar comandos específicos o contenidos especiales,
+        # o incluso tareas programadas que el bot debiera realizar.
+
+
+#bot/utils.py
+import os
+import time
+from datetime import datetime
+
+def limpiar_pantalla():
+    """Limpia la pantalla de la consola."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def datetime_to_unixtime(dt):
+    """Convierte un objeto datetime a tiempo Unix (timestamp)."""
+    return int(time.mktime(dt.timetuple()))
+    
+def format_datetime(dt):
+    """Formatea un objeto datetime a string en formato humano-legible."""
+    return dt.strftime('%Y-%m-%d %H:%M:%S')
+
+def get_current_time():
+    """Devuelve el tiempo actual como un objeto datetime."""
+    return datetime.now()
+
+# Puedes añadir otras funciones de utilidad que sean necesarias para tu bot.
+
+
+# models/__init__.py
+# Este archivo permite que el directorio 'models' sea tratado como un paquete Python.
+
+#models/gpt_handler.py
+import os
+from settings import MODEL_PATH
+# Suponiendo que there's a generative pre-trained model package (replace with the actual package you're using)
+# Por ejemplo, puede ser gpt_3 or transformers if you're using OpenAI GPT-3 or huggingface's transformers.
+
+class GPTHandler:
+    def __init__(self, model_name):
+        self.model_name = model_name
+        # Aquí puedes inicializar el modelo, cargarlo en la memoria, etc.
+    
+    def generate_response(self, prompt, max_length=50):
+        """
+        Genera una respuesta dado un prompt utilizando el modelo GPT.
+
+        :param prompt: El prompt (input text) para el modelo GPT.
+        :param max_length: La longitud máxima de la respuesta generada.
+        :return: La respuesta generada por el modelo GPT.
+        """
+        # Implementa la lógica para generar una respuesta utilizando el modelo GPT.
+        # Por ejemplo:
+        # response = openai.Completion.create(engine=self.model_name, prompt=prompt, max_tokens=max_length)
+        # return response.choices[0].text.strip()
+        
+        # Esto es un stub, reemplaza con el código para generar la respuesta utilizando tu modelo.
+        return "Esto es una respuesta simulada del modelo GPT para el prompt: " + prompt
+
+# Ejemplo de cómo inicializarías y usarías este GPTHandler:
+# gpt_handler = GPTHandler('gpt4all-yournamemodel.gguf')
+# response = gpt_handler.generate_response("Saludos humano, ¿cómo están las cosas?")
+# print(response)

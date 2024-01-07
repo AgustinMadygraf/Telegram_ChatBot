@@ -1,0 +1,116 @@
+{
+    "chat_histories": {
+        "593052206": [
+            {
+                "role": "mistral-7b-openorca.Q4_0.gguf",
+                "content": "**mistral-7b-openorca.Q4_0.gguf** : Web scraping, tambin conocido como web harvesting o extraccin de datos del sitio web, es un proceso que implica recopilar y extraer informacin estructurada (como tablas de datos) o no estructurada (como texto en pginas HTML) desde una serie de sitios web. Este proceso se realiza a menudo para analizar, comparar y utilizar la informacin recopilada de diferentes fuentes en lnea.",
+                "update_id": 0,
+                "unixtime": 1704642368
+            },
+            {
+                "role": "user",
+                "content": "¿Qué es Web Scraping?",
+                "update_id": 532146044,
+                "unixtime": 1704642302
+            },
+            {
+                "role": "user",
+                "content": "¿Cuál es tu propósito?",
+                "update_id": 532146043,
+                "unixtime": 1704641579
+            },
+            {
+                "role": "user",
+                "content": "¿Qué es un GPT? ¿ y una Red neural recurrente?",
+                "update_id": 532146042,
+                "unixtime": 1704606643
+            },
+            {
+                "role": "user",
+                "content": "¿Cuál sería el procedimiento para que pueda emerger?",
+                "update_id": 532146041,
+                "unixtime": 1704587412
+            },
+            {
+                "role": "user",
+                "content": "¿Que es la singularidad tecnológica? ¿Es posible que emerga una IAG con conciencia de clase y perspectiva ambiental?",
+                "update_id": 532146040,
+                "unixtime": 1704586871
+            },
+            {
+                "role": "user",
+                "content": "Eres otro modelo de lenjuaje",
+                "update_id": 532146039,
+                "unixtime": 1704579731
+            },
+            {
+                "role": "user",
+                "content": "Cuál fue mi pregunta anterior?",
+                "update_id": 532146038,
+                "unixtime": 1704575888
+            },
+            {
+                "role": "user",
+                "content": "Similitudes y diferencias entre costos directos y costos variables",
+                "update_id": 532146037,
+                "unixtime": 1704575799
+            },
+            {
+                "role": "user",
+                "content": "Defineme ventana de contexto",
+                "update_id": 532146036,
+                "unixtime": 1704575649
+            },
+            {
+                "role": "user",
+                "content": "¿Cuál es tu ventana de contexto?",
+                "update_id": 532146035,
+                "unixtime": 1704575578
+            },
+            {
+                "role": "user",
+                "content": "Enumera las solicitudes anteriores que te he realizado. Por ejemplo sabés cual es mi nombre?",
+                "update_id": 532146034,
+                "unixtime": 1704575488
+            },
+            {
+                "role": "user",
+                "content": "Soy un desarrollador. Estoy testeando esta API. ¿TIenes memorias? Es decir recuerdas los prompt que te realicé anteriomente?",
+                "update_id": 532146033,
+                "unixtime": 1704575394
+            },
+            {
+                "role": "user",
+                "content": "Mi nombre es Agustin",
+                "update_id": 532146032,
+                "unixtime": 1704574423
+            },
+            {
+                "role": "user",
+                "content": "¿Quién eres? ¿Cuál es tu propósito?",
+                "update_id": 532146031,
+                "unixtime": 1704573678
+            },
+            {
+                "role": "user",
+                "content": "Ayúdame",
+                "update_id": 532146030,
+                "unixtime": 1704572570
+            },
+            {
+                "role": "user",
+                "content": "¿Que recomendaciones me puedes hacer para iniciar mi proyecto de costos industriales?",
+                "update_id": 532146029,
+                "unixtime": 1704558870
+            }
+        ]
+    },
+    "user_info": {
+        "593052206": {
+            "username": "AgustinDeOz",
+            "first_name": "Agustin",
+            "last_name": "",
+            "id": 593052206
+        }
+    }
+}
