@@ -1,0 +1,68 @@
+{
+    "chat_histories": {
+        "593052206": [
+            {
+                "role": "mistral-7b-instruct-v0.1.Q4_0.gguf",
+                "content": "**mistral-7b-instruct-v0.1.Q4_0.gguf** :  Bueno, para continuar con la instalacin del sistema operativo, tendrs que seguir los siguientes pasos:\n\n1. Prepara tu computadora: Borra todos los archivos y programas existentes en el disco duro o SSD de tu computadora. Tambin elimina cualquier software antivirus o firewall que pueda interferir con la instalacin del sistema operativo.\n2. Crear una particin: Utiliza un programa como GParted para crear una nueva particin en el disco duro o SSD de tu computadora. La parte ms importante es que esta particin sea mayor a la cantidad de espacio necesaria para instalar tu sistema operativo.\n3. Formatea la particin: Despus de crear la nueva particin, formata la misma utilizando el programa de tu sistema operativo. Esto elimina todos los dat",
+                "update_id": 0,
+                "unixtime": 1704668762
+            },
+            {
+                "role": "user",
+                "content": "Ya lo pude descargar localmente. ¿Que como debo contnuar?",
+                "update_id": 532146047,
+                "unixtime": 1704668660
+            },
+            {
+                "role": "user",
+                "content": "¿Cómo puedo configurar un LLM?",
+                "update_id": 532146046,
+                "unixtime": 1704665952
+            },
+            {
+                "role": "user",
+                "content": "En el contexto IA ¿Qué es un LLM?",
+                "update_id": 532146045,
+                "unixtime": 1704659714
+            },
+            {
+                "role": "user",
+                "content": "¿Qué es Web Scraping?",
+                "update_id": 532146044,
+                "unixtime": 1704642302
+            },
+            {
+                "role": "user",
+                "content": "¿Cuál es tu propósito?",
+                "update_id": 532146043,
+                "unixtime": 1704641579
+            },
+            {
+                "role": "user",
+                "content": "¿Qué es un GPT? ¿ y una Red neural recurrente?",
+                "update_id": 532146042,
+                "unixtime": 1704606643
+            },
+            {
+                "role": "user",
+                "content": "¿Cuál sería el procedimiento para que pueda emerger?",
+                "update_id": 532146041,
+                "unixtime": 1704587412
+            },
+            {
+                "role": "user",
+                "content": "¿Que es la singularidad tecnológica? ¿Es posible que emerga una IAG con conciencia de clase y perspectiva ambiental?",
+                "update_id": 532146040,
+                "unixtime": 1704586871
+            }
+        ]
+    },
+    "user_info": {
+        "593052206": {
+            "username": "AgustinDeOz",
+            "first_name": "Agustin",
+            "last_name": "",
+            "id": 593052206
+        }
+    }
+}

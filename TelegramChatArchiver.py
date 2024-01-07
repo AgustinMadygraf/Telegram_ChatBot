@@ -7,6 +7,7 @@ import telegram
 import os
 import json
 import sys
+import config
 
 
 
@@ -21,7 +22,7 @@ async def main():
     async with bot:
         historial = await bot.get_updates()
 
-        archivo = "context_window_telegram.json"
+        archivo = config.CHAT_HISTORY_PATH
         data_existente = cargar_datos_existentes(archivo)
 
         chat_histories = data_existente.get("chat_histories", {})

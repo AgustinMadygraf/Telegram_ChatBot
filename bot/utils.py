@@ -15,6 +15,7 @@ def datetime_to_unixtime(dt):
 
 
 def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, reply_content, seleccion_modelo):
+    chat_id=593052206
     try:
         # Agregar reply_content al historial de chat para el chat_id específico
         if chat_id not in chat_history:
@@ -37,4 +38,3 @@ def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, re
 
     except Exception as e:
         print(f"No se pudo guardar el historial del chat. Error: {e}")
-
