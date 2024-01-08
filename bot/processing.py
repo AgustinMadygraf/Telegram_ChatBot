@@ -17,22 +17,19 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         prompt = "Continúa"
 
     print(f"last prompt: {prompt}")
-    print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. ")
+    print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n")
 
     inicio_generacion = time.time()
     tokens = []
+    print(f"\n**{seleccion_modelo}**: ")
     for token in model.generate(prompt, temp=0, streaming=True):
-        # Limpiar la consola
-        os.system('cls' if os.name == 'nt' else 'clear')
         # Agregar el token a la lista
         tokens.append(token)
-        # Convertir la lista de tokens en una cadena y mostrarla
-        print(''.join(tokens))
-        time.sleep(0.05)  # Pausa para visualización
+        # Imprimir la respuesta hasta el momento
+        print(token, end='', flush=True)
     fin_generacion = time.time()
     tiempo_generacion = fin_generacion - inicio_generacion
-    print(f"Gracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
-
+    print(f"\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
 
 
     n = len(model.current_chat_session) - 1
@@ -45,6 +42,7 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         print("guardado con éxito. ")
 
         await send(reply_content,chat_id)
+        
     else:
         print("No hay mensajes en la sesión de chat actual.")
     i = i + 1
