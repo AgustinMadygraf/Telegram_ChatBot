@@ -21,7 +21,7 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
 
     inicio_generacion = time.time()
     tokens = []
-    print(f"\n**{seleccion_modelo}**: ")
+    print(f"\nIncovando a **{seleccion_modelo}**\n ")
     for token in model.generate(prompt, temp=0, streaming=True):
         # Agregar el token a la lista
         tokens.append(token)
