@@ -46,15 +46,13 @@ async def main():
         seleccion_modelo = modelos_a_mostrar[0]
 
     if seleccion_modelo:
-        logging.info(f"Modelo seleccionado: {seleccion_modelo}")
-        logging.info("Cargando parámetros en la memoria RAM...")
-    else:
-        logging.warning("No se ha seleccionado ningún modelo.")
-
-    if seleccion_modelo:
         try:
+            inicio_carga = time.time()  # Iniciar el contador de tiempo
+            print("inicializando...")
             model = GPT4All(seleccion_modelo, config.MODEL_PATH)
-            logging.info("Modelo inicializado con éxito.")
+            fin_carga = time.time()  # Finalizar el contador de tiempo
+            tiempo_carga = fin_carga - inicio_carga  # Calcular la duración de la carga
+            logging.info(f"Modelo inicializado con éxito en {tiempo_carga:.2f} segundos.")
         except ValueError as e:
             logging.error(f"Error al inicializar el modelo: {e}")
             model = None

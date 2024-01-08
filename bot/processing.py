@@ -3,7 +3,8 @@ import asyncio
 import json
 from bot.utils import limpiar_pantalla, guardar_chat_history  
 from bot.bot import send, send_a
-import config  # Importa el módulo de configuración
+import config 
+import time
 
 async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo,chat_id):
     user_id_str = str(user_id)
@@ -16,8 +17,12 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
 
     print(f"last prompt: {prompt}")
     print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. ")
+    inicio_generacion = time.time()  # Iniciar el contador de tiempo
     model.generate(prompt, temp=0)
-    print("Gracias por esperar")
+    fin_generacion = time.time()  # Finalizar el contador de tiempo
+    tiempo_generacion = fin_generacion - inicio_generacion  # Calcular la duración de la generación
+    print(f"Gracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
+
 
     n = len(model.current_chat_session) - 1
 
