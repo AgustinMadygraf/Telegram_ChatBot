@@ -1,4 +1,5 @@
 __pycache__/
+models/__pycache__/
 *.pyc
-context_window_telegram.json
-
+data/context_window_telegram.json
+listado_telegram_chatbot.txt
