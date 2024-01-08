@@ -27,7 +27,18 @@ async def main():
     
     user_id_str = str(593052206)
     i = 2
+    print("Elige el modo de respuesta del bot:")
+    print("1. Respuesta rápida (ventana de contexto limitada a la última pregunta)")
+    print("2. Respuesta detallada (ventana de contexto ampliada a todo el historial)")
+    modo_respuesta = input("Selecciona una opción (1 o 2): ")
+    if modo_respuesta not in ["1", "2"]:
+        print("Selección inválida. Usando modo de respuesta rápida por defecto.")
+        modo_respuesta = "1"
 
+    if modo_respuesta == "1":
+        respuesta_rapida = True
+    else:
+        respuesta_rapida = False
     opcion_ram = input("Selecciona la capacidad de tu memoria RAM: 1 (1 GB), 2 (4 GB), 3 (8 GB), 4 (16 GB): \n")
     if opcion_ram not in config.MODELOS_POR_RAM:
         opcion_ram = "2"
@@ -68,7 +79,7 @@ async def main():
                     if ultimo_rol == "user":     
                         seg = 5
                         await send_a()
-                        await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config.TELEGRAM_TOKEN)
+                        await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config.TELEGRAM_TOKEN, respuesta_rapida)
                     else:
                         #limpiar_pantalla()
                         logging.info("Esperando consulta desde Telegram")

@@ -7,16 +7,19 @@ import config
 import time
 import os
 
-async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id):
+async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id,respuesta_rapida):
     user_id_str = str(user_id)
     user_messages = chat_history.get(user_id_str, [])
-    
+    print("\nrespuesta_rapida: ",respuesta_rapida)
     if user_messages:
-        prompt = user_messages[0]['content']
+        if respuesta_rapida:
+            prompt = user_messages[0]['content']  
+        else:
+            prompt = user_messages  #acá debemos modificar para optimizar la ventana de contexto
     else:
         prompt = "Continúa"
 
-    print(f"last prompt: {prompt}")
+    print(f"\nlast prompt: {prompt}")
     print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n")
 
     inicio_generacion = time.time()
