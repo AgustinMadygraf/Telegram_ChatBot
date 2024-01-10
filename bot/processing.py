@@ -35,8 +35,11 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         if n >= 0 and len(model.current_chat_session) > n:
             print(f"\nmodel.current_chat_session[n]['content']: {model.current_chat_session[n]['content']}\n")
             reply_content = "**" + seleccion_modelo + "** : " + model.current_chat_session[n]['content']
+            print(f"\nreply_content: {reply_content}")
             guardar_chat_history(chat_history, user_info, config.CHAT_HISTORY_PATH, chat_id, reply_content, seleccion_modelo)
             print("guardado con éxito. ")
+            chat_id = 593052206
+            print("chat_id: ",chat_id)
             await send(reply_content, chat_id)
         else:
             print("No hay mensajes en la sesión de chat actual.")
