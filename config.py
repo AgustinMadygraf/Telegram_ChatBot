@@ -1,6 +1,9 @@
 # config.py
 import os
 import json
+from dotenv import load_dotenv
+
+load_dotenv()  
 
 def load_system_template():
     try:
@@ -45,5 +48,4 @@ MODELOS_DISPONIBLES = {
 
 # Variables de entorno
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
-MODEL_PATH = os.getenv('MODEL_PATH', 'E:\Model _Explorer') # Ruta por defecto si no se encuentra la variable de entorno
-
+MODEL_PATH = os.getenv('MODEL_PATH', 'E:\Model _Explorer') 

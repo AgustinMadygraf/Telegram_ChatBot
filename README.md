@@ -1,65 +1,62 @@
+# Chatbot de Telegram para GPT-4All
 
-# Telegram ChatBot
-
-Este proyecto es un chatbot para Telegram implementado en Python. Utiliza modelos de lenguaje GPT para procesar y responder mensajes.
+Este proyecto es un chatbot de Telegram que utiliza modelos avanzados de inteligencia artificial para interactuar con los usuarios. Está construido en Python y puede ser personalizado para diferentes usos.
 
 ## Características
 
-- Conexión con la API de Telegram.
-- Uso de modelos GPT para generar respuestas.
-- Almacenamiento y recuperación de historiales de chat.
-
-## Requisitos Previos
-
-Antes de comenzar, asegúrate de tener lo siguiente instalado:
-- Python 3.8 o superior
-- pip (gestor de paquetes de Python)
-
-## Instalación
-
-Sigue estos pasos para instalar el chatbot:
-
-1. Clona el repositorio:
-   ```
-   git clone https://github.com/AgustinMadygraf/Telegram_ChatBot.git
-   ```
-2. Navega al directorio del proyecto:
-   ```
-   cd Telegram_ChatBot
-   ```
-3. Instala las dependencias:
-   ```
-   pip install -r requirements.txt
-   ```
+- Interacción en tiempo real con usuarios a través de Telegram.
+- Utiliza modelos de IA como GPT-4All para generar respuestas.
+- Configurable para diferentes capacidades de memoria RAM.
 
 ## Configuración
 
-1. Configura tu token de bot de Telegram en `settings.py`.
-2. Ajusta cualquier otra configuración específica del proyecto según sea necesario.
+### Prerrequisitos
 
-## Uso
+- Python 3.12 o superior.
+- Una cuenta de bot de Telegram y su token correspondiente.
 
-Para iniciar el bot, ejecuta:
+### Instalación
+
+Clona este repositorio usando:
+
+```bash
+git clone [URL del repositorio]
 ```
+
+Instala las dependencias necesarias:
+
+```bash
+pip install -r requirements.txt
+```
+
+### Configuración de Variables de Entorno
+
+Crea un archivo `.env` en la raíz del proyecto y añade las siguientes variables:
+
+```env
+TELEGRAM_TOKEN=tu_token_de_telegram_aquí
+```
+
+> ⚠️ **Nota de Seguridad**: Nunca subas tu archivo `.env` a repositorios públicos, ya que contiene información sensible.
+
+### Ejecución
+
+Para iniciar el chatbot, ejecuta:
+
+```bash
 python main.py
 ```
 
-## Contribuciones
+## Documentación Adicional
 
-Las contribuciones son bienvenidas. Si deseas contribuir al proyecto, por favor sigue estos pasos:
+- `config.py`: Gestiona la configuración del chatbot.
+- `main.py`: Archivo principal que inicia el bot.
+- `TelegramChatArchiver.py`: Archiva el historial de chats de Telegram.
 
-1. Haz fork del repositorio.
-2. Crea una nueva rama para tu característica (`git checkout -b feature/nuevaCaracteristica`).
-3. Realiza tus cambios.
-4. Haz commit de tus cambios (`git commit -am 'Añadir alguna característica'`).
-5. Haz push a la rama (`git push origin feature/nuevaCaracteristica`).
-6. Abre un Pull Request.
+## Contribuir
+
+Si deseas contribuir al proyecto, considera realizar un 'fork' del repositorio y enviar tus 'pull requests'. Para más detalles, consulta `CONTRIBUTING.md`.
 
 ## Licencia
 
-Este proyecto está bajo la Licencia [AÑADE AQUÍ TU LICENCIA]. Consulta el archivo `LICENSE` para más detalles.
-
-## Contacto
-
-Si tienes alguna pregunta, no dudes en contactarme:
-- [Tu Perfil de GitHub](https://github.com/AgustinMadygraf)
+Este proyecto está licenciado bajo [Licencia MIT](LICENSE).
