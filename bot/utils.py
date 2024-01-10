@@ -16,11 +16,12 @@ def datetime_to_unixtime(dt):
     return int(dt.timestamp())
 
 
+
 def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, reply_content, seleccion_modelo):
-    logging.info(f"Guardando historial del chat en {chat_history_path}")
-    chat_id=593052206
+    logging.info(f"Intentando guardar historial del chat en {chat_history_path}")
+
+    chat_id = 593052206  # Asumiendo que esta es una constante en tu caso
     try:
-        # Agregar reply_content al historial de chat para el chat_id específico
         if chat_id not in chat_history:
             chat_history[chat_id] = []
 
@@ -36,8 +37,11 @@ def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, re
             "user_info": user_info
         }
 
-        with open(chat_history_path, 'w') as file:
+        # Añadir un registro antes de la escritura del archivo
+        logging.info(f"Guardando datos en {chat_history_path}")
+        with open(chat_history_path, 'w', encoding='utf-8') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
         logging.info("Historial del chat guardado con éxito.")
+
     except Exception as e:
-        print(f"No se pudo guardar el historial del chat. Error: {e}")
+        logging.error(f"No se pudo guardar el historial del chat. Error: {e}")
