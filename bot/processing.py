@@ -49,8 +49,8 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         logging.error(f"Error al procesar la respuesta con el modelo IA: {e}")
         await send("Lo siento, ocurrió un error al procesar tu solicitud.", chat_id)
 
-
 def cargar_chat_history(file_path):
+    logging.info(f"Cargando historial del chat desde {file_path}")
     try:
         with open(file_path, 'r') as file:
             data = json.load(file)

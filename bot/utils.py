@@ -17,6 +17,7 @@ def datetime_to_unixtime(dt):
 
 
 def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, reply_content, seleccion_modelo):
+    logging.info(f"Guardando historial del chat en {chat_history_path}")
     chat_id=593052206
     try:
         # Agregar reply_content al historial de chat para el chat_id específico

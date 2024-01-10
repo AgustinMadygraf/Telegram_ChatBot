@@ -88,12 +88,16 @@ class TelegramArchiver:
             logging.error(f"No se pudo guardar el historial del chat: {e}")
 
 async def main():
+    updates = await archiver.get_updates()
+    logging.info("Actualizaciones de Telegram recibidas")
+    chat_histories, user_info = archiver.process_updates(updates)
+    logging.info("Procesando actualizaciones de Telegram")
+    archiver.save_chat_history(chat_histories, user_info)
+    logging.info("Historial del chat guardado en archivo JSON")
     if sys.version_info[0] >= 3:
         sys.stdout.reconfigure(encoding='utf-8')
-
     token_telegram = config.TELEGRAM_TOKEN
     archiver = TelegramArchiver(token_telegram, config.CHAT_HISTORY_PATH)
-    
     updates = await archiver.get_updates()
     chat_histories, user_info = archiver.process_updates(updates)
     archiver.save_chat_history(chat_histories, user_info)
