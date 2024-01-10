@@ -1,54 +1,50 @@
-# bot/processing.py
 import asyncio
 import json
-from bot.utils import limpiar_pantalla, guardar_chat_history  
+import logging
+from bot.utils import limpiar_pantalla, guardar_chat_history
 from bot.bot import send, send_a
-import config 
+import config
 import time
 import os
 
-async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id,respuesta_rapida):
+async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id, respuesta_rapida):
     user_id_str = str(user_id)
     user_messages = chat_history.get(user_id_str, [])
-    print("\nrespuesta_rapida: ",respuesta_rapida)
-    if user_messages:
-        if respuesta_rapida:
-            prompt = user_messages[0]['content']  
+    print("\nrespuesta_rapida: ", respuesta_rapida)
+
+    try:
+        if user_messages:
+            prompt = user_messages[0]['content'] if respuesta_rapida else user_messages
         else:
-            prompt = user_messages  #acá debemos modificar para optimizar la ventana de contexto
-    else:
-        prompt = "Continúa"
+            prompt = "Continúa"
 
-    print(f"\nlast prompt: {prompt}")
-    print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n")
+        print(f"\nlast prompt: {prompt}")
+        print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n")
 
-    inicio_generacion = time.time()
-    tokens = []
-    print(f"\nIncovando a **{seleccion_modelo}**\n ")
-    for token in model.generate(prompt, temp=0, streaming=True):
-        # Agregar el token a la lista
-        tokens.append(token)
-        # Imprimir la respuesta hasta el momento
-        print(token, end='', flush=True)
-    fin_generacion = time.time()
-    tiempo_generacion = fin_generacion - inicio_generacion
-    print(f"\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
+        inicio_generacion = time.time()
+        tokens = []
+        print(f"\nInvocando a **{seleccion_modelo}**\n ")
+        for token in model.generate(prompt, temp=0, streaming=True):
+            tokens.append(token)
+            print(token, end='', flush=True)
+        fin_generacion = time.time()
+        tiempo_generacion = fin_generacion - inicio_generacion
+        print(f"\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
 
+        n = len(model.current_chat_session) - 1
+        if n >= 0 and len(model.current_chat_session) > n:
+            print(f"\nmodel.current_chat_session[n]['content']: {model.current_chat_session[n]['content']}\n")
+            reply_content = "**" + seleccion_modelo + "** : " + model.current_chat_session[n]['content']
+            guardar_chat_history(chat_history, user_info, config.CHAT_HISTORY_PATH, chat_id, reply_content, seleccion_modelo)
+            print("guardado con éxito. ")
+            await send(reply_content, chat_id)
+        else:
+            print("No hay mensajes en la sesión de chat actual.")
+        i = i + 1
+    except Exception as e:
+        logging.error(f"Error al procesar la respuesta con el modelo IA: {e}")
+        await send("Lo siento, ocurrió un error al procesar tu solicitud.", chat_id)
 
-    n = len(model.current_chat_session) - 1
-
-    if n >= 0 and len(model.current_chat_session) > n:
-        print(f"\nmodel.current_chat_session[n]['content']: {model.current_chat_session[n]['content']}\n")
-        reply_content = "**" + seleccion_modelo + "** : " + model.current_chat_session[n]['content']
-        # Utiliza la ruta del archivo desde config.py
-        guardar_chat_history(chat_history, user_info, config.CHAT_HISTORY_PATH, chat_id, reply_content,seleccion_modelo)
-        print("guardado con éxito. ")
-
-        await send(reply_content,chat_id)
-        
-    else:
-        print("No hay mensajes en la sesión de chat actual.")
-    i = i + 1
 
 def cargar_chat_history(file_path):
     try:

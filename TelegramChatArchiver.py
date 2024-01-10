@@ -8,7 +8,6 @@ import config
 import asyncio
 import logging
 
-# Configuración del logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 class TelegramArchiver:
@@ -19,12 +18,18 @@ class TelegramArchiver:
     async def get_updates(self):
         try:
             async with self.bot:
-                return await self.bot.get_updates(timeout=60)  # Aumentar el tiempo de espera a 60 segundos
+                return await self.bot.get_updates(timeout=60)
         except telegram.error.TimedOut as e:
             logging.warning(f"Tiempo de espera agotado al intentar obtener actualizaciones: {e}")
             return []
+        except telegram.error.NetworkError as e:
+            logging.error(f"Error de red al intentar obtener actualizaciones: {e}")
+            return []
+        except telegram.error.TelegramError as e:
+            logging.error(f"Error de la API de Telegram: {e}")
+            return []
         except Exception as e:
-            logging.error(f"Error al obtener actualizaciones de Telegram: {e}")
+            logging.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
             return []
 
     def process_updates(self, updates):

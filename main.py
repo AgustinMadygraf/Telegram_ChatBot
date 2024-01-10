@@ -12,9 +12,19 @@ from bot.processing import cargar_chat_history, procesar_respuesta
 from utils.logger import setup_logging
 import logging
 
-# Cargar configuraciones desde config.json
-with open('config.json', 'r') as config_file:
-    config = json.load(config_file)
+# Manejo de errores para la carga de config.json
+try:
+    with open('config.json', 'r') as config_file:
+        config = json.load(config_file)
+except FileNotFoundError:
+    logging.error("Archivo 'config.json' no encontrado.")
+    sys.exit("Error: Archivo de configuración no encontrado.")
+except json.JSONDecodeError:
+    logging.error("Error al decodificar 'config.json'. Verifica el formato del archivo.")
+    sys.exit("Error: Formato de archivo de configuración inválido.")
+except Exception as e:
+    logging.error(f"Error inesperado al cargar 'config.json': {e}")
+    sys.exit("Error inesperado al cargar la configuración.")
 
 setup_logging()
 
@@ -79,7 +89,7 @@ async def main():
                     logging.info(f"Último mensaje en la conversación: rol '{ultimo_rol}'")
                     if ultimo_rol == "user":     
                         seg = 5
-                        await send_a()
+                        await send_a(593052206)  
                         await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config['telegram_token'], respuesta_rapida)
                     else:
                         logging.info("Esperando consulta desde Telegram")
