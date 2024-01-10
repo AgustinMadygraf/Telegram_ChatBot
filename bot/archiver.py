@@ -11,9 +11,13 @@ def cargar_datos_existentes(archivo):
         else:
             logging.info(f"El archivo {archivo} está vacío o no existe. Creando estructura predeterminada.")
             return {"chat_histories": {}, "user_info": {}}
+
     except json.JSONDecodeError as e:
         logging.error(f"Error al leer el archivo JSON {archivo}: {e}")
         logging.info("Creando estructura de datos predeterminada debido a un error de decodificación.")
+        return {"chat_histories": {}, "user_info": {}}
+    except UnicodeDecodeError as e:
+        logging.error(f"Error de codificación al leer el archivo {archivo}: {e}") # Opcional: Añade más acciones aquí, como intentar leer el archivo con una codificación diferente.
         return {"chat_histories": {}, "user_info": {}}
     except Exception as e:
         logging.error(f"Error inesperado al leer el archivo {archivo}: {e}")

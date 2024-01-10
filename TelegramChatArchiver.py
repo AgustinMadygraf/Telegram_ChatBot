@@ -84,7 +84,6 @@ class TelegramArchiver:
 
             with open(self.chat_history_path, "w", encoding="utf-8") as file:
                 json.dump(data_to_save, file, indent=4, ensure_ascii=False)
-            logging.info("Historial del chat guardado con éxito.")
         except Exception as e:
             logging.error(f"No se pudo guardar el historial del chat: {e}")
 

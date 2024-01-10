@@ -4,6 +4,8 @@ import os
 import datetime
 import time
 import json
+import logging
+
 
 def limpiar_pantalla():
     """Limpia la pantalla de la consola."""
@@ -35,6 +37,6 @@ def guardar_chat_history(chat_history, user_info, chat_history_path, chat_id, re
 
         with open(chat_history_path, 'w') as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
-
+        logging.info("Historial del chat guardado con éxito.")
     except Exception as e:
         print(f"No se pudo guardar el historial del chat. Error: {e}")

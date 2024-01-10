@@ -19,7 +19,7 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
             prompt = "Continúa"
 
         print(f"\nlast prompt: {prompt}")
-        print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n")
+        print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n---------------------")
 
         inicio_generacion = time.time()
         tokens = []
@@ -29,7 +29,7 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
             print(token, end='', flush=True)
         fin_generacion = time.time()
         tiempo_generacion = fin_generacion - inicio_generacion
-        print(f"\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
+        print(f"\n\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
 
         n = len(model.current_chat_session) - 1
         if n >= 0 and len(model.current_chat_session) > n:
@@ -37,9 +37,10 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
             reply_content = "**" + seleccion_modelo + "** : " + model.current_chat_session[n]['content']
             print(f"\nreply_content: {reply_content}")
             guardar_chat_history(chat_history, user_info, config.CHAT_HISTORY_PATH, chat_id, reply_content, seleccion_modelo)
-            print("guardado con éxito. ")
+            print("\nguardado con éxito. ")
             chat_id = 593052206
-            print("chat_id: ",chat_id)
+            print("\nchat_id: ",chat_id)
+            print("")
             await send(reply_content, chat_id)
         else:
             print("No hay mensajes en la sesión de chat actual.")
