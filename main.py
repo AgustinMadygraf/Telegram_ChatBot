@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# main.py
 import os
 import json
 import time
@@ -11,9 +9,12 @@ import TelegramChatArchiver
 from bot.utils import limpiar_pantalla, guardar_chat_history
 from bot.bot import send, send_a
 from bot.processing import cargar_chat_history, procesar_respuesta
-import config  
 from utils.logger import setup_logging
 import logging
+
+# Cargar configuraciones desde config.json
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
 
 setup_logging()
 
@@ -23,7 +24,7 @@ async def main():
     logging.info(f"Versión de Python: {sys.version}")
 
     logging.info("Inicializando...")
-    logging.info(f"El archivo seleccionado para trabajar es: {config.CHAT_HISTORY_PATH}")
+    logging.info(f"El archivo seleccionado para trabajar es: {config['chat_history_path']}")
     
     user_id_str = str(593052206)
     i = 2
@@ -40,11 +41,11 @@ async def main():
     else:
         respuesta_rapida = False
     opcion_ram = input("Selecciona la capacidad de tu memoria RAM: 1 (1 GB), 2 (4 GB), 3 (8 GB), 4 (16 GB): \n")
-    if opcion_ram not in config.MODELOS_POR_RAM:
+    if opcion_ram not in config['ram_options']:
         opcion_ram = "2"
-    ram_seleccionada = config.MODELOS_POR_RAM.get(opcion_ram)
+    ram_seleccionada = config['ram_options'].get(opcion_ram)
 
-    modelos_a_mostrar = config.MODELOS_DISPONIBLES.get(ram_seleccionada, [])
+    modelos_a_mostrar = config['models_available'].get(ram_seleccionada, [])
     if modelos_a_mostrar:
         logging.info(f"Modelos disponibles para RAM de {ram_seleccionada} seleccionada:")
         for idx, modelo in enumerate(modelos_a_mostrar, 1):
@@ -60,7 +61,7 @@ async def main():
         try:
             inicio_carga = time.time()  # Iniciar el contador de tiempo
             print("inicializando...")
-            model = GPT4All(seleccion_modelo, config.MODEL_PATH)
+            model = GPT4All(seleccion_modelo, config['model_path'])
             fin_carga = time.time()  # Finalizar el contador de tiempo
             tiempo_carga = fin_carga - inicio_carga  # Calcular la duración de la carga
             logging.info(f"Modelo inicializado con éxito en {tiempo_carga:.2f} segundos.")
@@ -71,17 +72,16 @@ async def main():
         if model:
             i = 2
             seg = 5
-            with model.chat_session(config.SYSTEM_TEMPLATE):
+            with model.chat_session(config['system_templates'][0]['template']):
                 while True:
                     await TelegramChatArchiver.main()
-                    chat_history, user_info, ultimo_rol = cargar_chat_history(config.CHAT_HISTORY_PATH)
+                    chat_history, user_info, ultimo_rol = cargar_chat_history(config['chat_history_path'])
                     logging.info(f"Último mensaje en la conversación: rol '{ultimo_rol}'")
                     if ultimo_rol == "user":     
                         seg = 5
                         await send_a()
-                        await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config.TELEGRAM_TOKEN, respuesta_rapida)
+                        await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config['telegram_token'], respuesta_rapida)
                     else:
-                        #limpiar_pantalla()
                         logging.info("Esperando consulta desde Telegram")
                         for seg_temp in range(seg, 0, -1):
                             print(f"Continuando en {seg_temp} segundos...", end="\r")
