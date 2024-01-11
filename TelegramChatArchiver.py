@@ -8,6 +8,8 @@ from shared_utils import datetime_to_unixtime, cargar_json, guardar_json
 import config
 from dotenv import load_dotenv
 import time
+import aiofiles
+import json
 
 load_dotenv()  # Carga las variables de entorno del archivo .env
 
@@ -33,7 +35,6 @@ def manejo_excepciones_telegram(func):
         return []
     return wrapper
 
-
 def reintento_con_backoff_exponencial(func):
     async def wrapper(*args, **kwargs):
         reintento = 0
@@ -48,13 +49,12 @@ def reintento_con_backoff_exponencial(func):
         return None
     return wrapper
 
-
 class TelegramArchiver:
     def __init__(self, token, chat_history_path):
         self.token = os.getenv('TELEGRAM_TOKEN')
         self.chat_history_path = chat_history_path
         self.bot = telegram.Bot(self.token)
-
+        self.chat_histories_in_memory = {}
 
     @manejo_excepciones_telegram
     async def get_updates(self):
@@ -126,6 +126,13 @@ class TelegramArchiver:
             "chat_histories": chat_histories,
             "user_info": user_info
         })
+    
+    async def save_chat_history(self, chat_histories, user_info):
+        async with aiofiles.open(self.chat_history_path, 'w') as file:
+            await file.write(json.dumps({
+                "chat_histories": chat_histories,
+                "user_info": user_info
+            }, ensure_ascii=False, indent=4))
 
 async def main():
     if sys.version_info[0] >= 3:
