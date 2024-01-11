@@ -12,6 +12,12 @@ from dotenv import load_dotenv
 import time
 import aiofiles
 import json
+from config_manager import ConfigManager
+
+config_manager = ConfigManager()
+
+token_telegram = config_manager.telegram_token
+
 
 load_dotenv()  # Carga las variables de entorno del archivo .env
 
@@ -134,17 +140,19 @@ class TelegramArchiver:
             }, ensure_ascii=False, indent=4))
         logging.info("Historial del chat guardado exitosamente")
 
-        
+
 async def main():
     if sys.version_info[0] >= 3:
         sys.stdout.reconfigure(encoding='utf-8')
-    
-    token_telegram = config.TELEGRAM_TOKEN
-    archiver = TelegramArchiver(token_telegram, config.CHAT_HISTORY_PATH)
 
+    # Usar config_manager en lugar de config
+    token_telegram = config_manager.telegram_token
+    chat_history_path = config_manager.config_data['chat_history_path']
+
+    archiver = TelegramArchiver(token_telegram, chat_history_path)
     updates = await archiver.get_updates()
     logging.info("Actualizaciones de Telegram recibidas")
-    
+
     chat_histories, user_info = await archiver.process_updates(updates)
     logging.info("Procesando actualizaciones de Telegram")
 

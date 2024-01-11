@@ -6,6 +6,12 @@ from bot.bot import send, send_a
 import config
 import time
 import os
+from config_manager import ConfigManager
+
+config_manager = ConfigManager()
+
+chat_history_path = config_manager.config_data['chat_history_path']
+
 
 async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id, respuesta_rapida):
     user_id_str = str(user_id)

@@ -11,6 +11,9 @@ from bot.bot import send, send_a
 from bot.processing import cargar_chat_history, procesar_respuesta
 from utils.logger import setup_logging
 import logging
+from config_manager import ConfigManager
+
+config_manager = ConfigManager()  # Instancia del nuevo gestor de configuraciones
 
 # Manejo de errores para la carga de config.json
 try:
