@@ -27,9 +27,10 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         inicio_generacion = time.time()
         tokens = []
         logging.info(f"Invocando a **{seleccion_modelo}**")
+        print(f"\nInvocando a **{seleccion_modelo}**\n ")
         for token in model.generate(prompt, temp=0, streaming=True):
             tokens.append(token)
-            logging.info(token)
+            print(token, end='', flush=True)
         fin_generacion = time.time()
         tiempo_generacion = fin_generacion - inicio_generacion
         logging.info(f"Tiempo de generación de respuesta: {tiempo_generacion:.2f} segundos")
