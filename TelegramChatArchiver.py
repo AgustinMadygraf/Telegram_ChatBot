@@ -125,11 +125,14 @@ class TelegramArchiver:
             logging.error(f"Error al procesar el mensaje de Telegram: {e}")
 
     async def save_chat_history(self, chat_histories, user_info):
-        async with aiofiles.open(self.chat_history_path, 'w') as file:
+        logging.info("Guardando historial del chat en archivo JSON")
+        async with aiofiles.open(self.chat_history_path, mode='w', encoding='utf-8') as file:
             await file.write(json.dumps({
                 "chat_histories": chat_histories,
                 "user_info": user_info
             }, ensure_ascii=False, indent=4))
+        logging.info("Historial del chat guardado exitosamente")
+
         
 async def main():
     if sys.version_info[0] >= 3:
