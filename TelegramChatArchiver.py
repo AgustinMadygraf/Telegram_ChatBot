@@ -17,7 +17,6 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 MAX_REINTENTOS = 5  
 
-
 def manejo_excepciones_telegram(func):
     async def wrapper(*args, **kwargs):
         try:
@@ -78,7 +77,10 @@ class TelegramArchiver:
             logging.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
             return []
 
-    def process_updates(self, updates):
+def process_updates(self, updates):
+    for update in updates:
+        if update.message:
+            chat_id = str(update.message.chat.id)
         data_existente = cargar_datos_existentes(self.chat_history_path)
         chat_histories = data_existente.get("chat_histories", {})
         user_info = data_existente.get("user_info", {})
@@ -133,6 +135,9 @@ class TelegramArchiver:
                 "chat_histories": chat_histories,
                 "user_info": user_info
             }, ensure_ascii=False, indent=4))
+    
+    def _process_message(self, update, chat_histories, user_info):
+        chat_id = str(update.message.chat.id)
 
 async def main():
     if sys.version_info[0] >= 3:
