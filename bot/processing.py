@@ -51,6 +51,7 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
 
 def cargar_chat_history(file_path):
     logging.info(f"Cargando historial del chat desde {file_path}")
+
     try:
         with open(file_path, 'r') as file:
             data = json.load(file)
@@ -59,11 +60,26 @@ def cargar_chat_history(file_path):
 
             ultimo_rol = None
             chat_usuario_especifico = chat_histories.get("593052206", [])
+
+            # Ordenar los mensajes por unixtime para asegurar que el más reciente es primero
+            chat_usuario_especifico.sort(key=lambda x: x['unixtime'], reverse=True)
+
             if chat_usuario_especifico:
                 primer_mensaje = chat_usuario_especifico[0]
                 ultimo_rol = primer_mensaje.get("role")
+                logging.info(f"Último mensaje del usuario 593052206 con rol {ultimo_rol}")
 
             return chat_histories, user_info, ultimo_rol
+
+    except FileNotFoundError:
+        logging.error(f"No se encontró el archivo: {file_path}. Por favor verifica la ruta.")
+        return {}, {}, None
+    except json.JSONDecodeError:
+        logging.error(f"Error al leer el archivo: {file_path}. Formato de archivo inválido.")
+        return {}, {}, None
+    except Exception as e:
+        logging.error(f"Error inesperado al leer el archivo {file_path}: {e}")
+        return {}, {}, None
 
     except FileNotFoundError:
         print(f"No se encontró el archivo: {file_path}. Por favor verifica la ruta.")

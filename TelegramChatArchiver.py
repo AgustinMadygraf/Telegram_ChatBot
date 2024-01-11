@@ -147,7 +147,7 @@ async def main():
     chat_histories, user_info = await archiver.process_updates(updates)
     logging.info("Procesando actualizaciones de Telegram")
 
-    archiver.save_chat_history(chat_histories, user_info)
+    await archiver.save_chat_history(chat_histories, user_info)
     logging.info("Historial del chat guardado en archivo JSON")
 
 if __name__ == '__main__':
