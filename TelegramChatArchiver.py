@@ -1,5 +1,7 @@
 import telegram
 import os
+import telegram
+import os
 import sys
 import asyncio
 import logging
@@ -23,10 +25,8 @@ def manejo_excepciones_telegram(func):
             return await func(*args, **kwargs)
         except telegram.error.NetworkError:
             logging.error("Error de red en Telegram.")
-            # Implementar lógica específica, como reintentar la conexión
         except telegram.error.TimedOut:
             logging.error("Tiempo de espera agotado en Telegram.")
-            # Implementar reintentos con backoff exponencial
         except telegram.error.TelegramError as e:
             logging.error(f"Error general de la API de Telegram: {e}")
         except Exception as e:
@@ -59,6 +59,7 @@ class TelegramArchiver:
     async def get_updates(self):
         async with self.bot:
             return await self.bot.get_updates(timeout=60)
+
 
     async def get_updates(self):
         try:
