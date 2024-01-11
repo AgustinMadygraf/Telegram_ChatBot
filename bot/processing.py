@@ -10,13 +10,10 @@ from config_manager import ConfigManager
 
 config_manager = ConfigManager()
 
-chat_history_path = config_manager.config_data['chat_history_path']
-
-
 async def procesar_respuesta(chat_history, user_id, model, i, user_info, seleccion_modelo, chat_id, respuesta_rapida):
     user_id_str = str(user_id)
     user_messages = chat_history.get(user_id_str, [])
-    print("\nrespuesta_rapida: ", respuesta_rapida)
+    logging.info(f"Respuesta rápida: {respuesta_rapida}")
 
     try:
         if user_messages:
@@ -24,33 +21,29 @@ async def procesar_respuesta(chat_history, user_id, model, i, user_info, selecci
         else:
             prompt = "Continúa"
 
-        print(f"\nlast prompt: {prompt}")
-        print("\nConsultado a la IA local, CPU está trabajando. Espere por favor. \n\n---------------------")
+        logging.info(f"Último prompt: {prompt}")
+        logging.info(f"Consultando a la IA local, CPU trabajando...")
 
         inicio_generacion = time.time()
         tokens = []
-        print(f"\nInvocando a **{seleccion_modelo}**\n ")
+        logging.info(f"Invocando a **{seleccion_modelo}**")
         for token in model.generate(prompt, temp=0, streaming=True):
             tokens.append(token)
-            print(token, end='', flush=True)
+            logging.info(token)
         fin_generacion = time.time()
         tiempo_generacion = fin_generacion - inicio_generacion
-        print(f"\n\nGracias por esperar. El tiempo de generación de respuesta fue de {tiempo_generacion:.2f} segundos")
+        logging.info(f"Tiempo de generación de respuesta: {tiempo_generacion:.2f} segundos")
 
         n = len(model.current_chat_session) - 1
         if n >= 0 and len(model.current_chat_session) > n:
-            print(f"\nmodel.current_chat_session[n]['content']: {model.current_chat_session[n]['content']}\n")
             reply_content = "**" + seleccion_modelo + "** : " + model.current_chat_session[n]['content']
-            print(f"\nreply_content: {reply_content}")
-            guardar_chat_history(chat_history, user_info, config.CHAT_HISTORY_PATH, chat_id, reply_content, seleccion_modelo)
-            print("\nguardado con éxito. ")
-            chat_id = 593052206
-            print("\nchat_id: ",chat_id)
-            print("")
+            logging.info(f"Contenido de respuesta: {reply_content}")
+            guardar_chat_history(chat_history, user_info, config_manager.config_data['chat_history_path'], chat_id, reply_content, seleccion_modelo)
+            logging.info("Guardado con éxito en el historial del chat.")
             await send(reply_content, chat_id)
         else:
-            print("No hay mensajes en la sesión de chat actual.")
-        i = i + 1
+            logging.info("No hay mensajes en la sesión de chat actual.")
+        i += 1
     except Exception as e:
         logging.error(f"Error al procesar la respuesta con el modelo IA: {e}")
         await send("Lo siento, ocurrió un error al procesar tu solicitud.", chat_id)
