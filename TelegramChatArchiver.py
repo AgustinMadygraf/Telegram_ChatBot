@@ -7,7 +7,6 @@ import asyncio
 import logging
 from bot.archiver import cargar_datos_existentes
 from shared_utils import datetime_to_unixtime, cargar_json, guardar_json
-import config
 from dotenv import load_dotenv
 import time
 import aiofiles

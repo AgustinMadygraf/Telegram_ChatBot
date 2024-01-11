@@ -3,7 +3,6 @@ import json
 import logging
 from bot.utils import limpiar_pantalla, guardar_chat_history
 from bot.bot import send, send_a
-import config
 import time
 import os
 from config_manager import ConfigManager
