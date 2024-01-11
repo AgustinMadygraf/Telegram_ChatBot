@@ -77,7 +77,7 @@ class TelegramArchiver:
             logging.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
             return []
 
-    def process_updates(self, updates):
+    async def process_updates(self, updates):
         data_existente = cargar_datos_existentes(self.chat_history_path)
         chat_histories = data_existente.get("chat_histories", {})
         user_info = data_existente.get("user_info", {})
@@ -88,7 +88,9 @@ class TelegramArchiver:
                 self._process_message(update, chat_histories, user_info)
 
         # Guardar el historial después de procesar todas las actualizaciones
-        asyncio.run(self.save_chat_history(chat_histories, user_info))
+        await self.save_chat_history(chat_histories, user_info)
+
+        return chat_histories, user_info
 
         return chat_histories, user_info
 
@@ -129,8 +131,6 @@ class TelegramArchiver:
                 "user_info": user_info
             }, ensure_ascii=False, indent=4))
         
-
-
 async def main():
     if sys.version_info[0] >= 3:
         sys.stdout.reconfigure(encoding='utf-8')
@@ -141,7 +141,7 @@ async def main():
     updates = await archiver.get_updates()
     logging.info("Actualizaciones de Telegram recibidas")
     
-    chat_histories, user_info = archiver.process_updates(updates)
+    chat_histories, user_info = await archiver.process_updates(updates)
     logging.info("Procesando actualizaciones de Telegram")
 
     archiver.save_chat_history(chat_histories, user_info)
