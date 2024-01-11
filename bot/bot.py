@@ -4,8 +4,14 @@ import logging
 
 async def send(reply_content, chat_id):
     """Envía un mensaje a un chat de Telegram específico."""
+    chat_id = 593052206
+    logging.info(f"intentando enviar mensaje a chat_id: {chat_id}")
+    logging.info(f"reply_content: {reply_content}")
     token_telegram = os.getenv('TELEGRAM_TOKEN')
+    logging.info(f"token_telegram: {token_telegram}")
     bot = telegram.Bot(token_telegram)
+    logging.info(f"bot: {bot}")
+
     try:
         async with bot:
             await bot.send_message(chat_id, text=reply_content)
