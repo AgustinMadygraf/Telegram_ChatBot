@@ -77,24 +77,23 @@ class TelegramArchiver:
             logging.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
             return []
 
-def process_updates(self, updates):
-    for update in updates:
-        if update.message:
-            chat_id = str(update.message.chat.id)
+    def process_updates(self, updates):
         data_existente = cargar_datos_existentes(self.chat_history_path)
         chat_histories = data_existente.get("chat_histories", {})
         user_info = data_existente.get("user_info", {})
 
         for update in updates:
             if update.message:
+                chat_id = str(update.message.chat.id)
                 self._process_message(update, chat_histories, user_info)
 
-        for chat_id in chat_histories:
-            chat_histories[chat_id].sort(key=lambda x: x['unixtime'], reverse=True)
+        # Guardar el historial después de procesar todas las actualizaciones
+        asyncio.run(self.save_chat_history(chat_histories, user_info))
 
         return chat_histories, user_info
 
     def _process_message(self, update, chat_histories, user_info):
+        chat_id = str(update.message.chat.id)
         try:
             chat_id = str(update.message.chat.id)
             text = update.message.text
@@ -123,21 +122,14 @@ def process_updates(self, updates):
         except Exception as e:
             logging.error(f"Error al procesar el mensaje de Telegram: {e}")
 
-    def save_chat_history(self, chat_histories, user_info):
-        guardar_json(self.chat_history_path, {
-            "chat_histories": chat_histories,
-            "user_info": user_info
-        })
-    
     async def save_chat_history(self, chat_histories, user_info):
         async with aiofiles.open(self.chat_history_path, 'w') as file:
             await file.write(json.dumps({
                 "chat_histories": chat_histories,
                 "user_info": user_info
             }, ensure_ascii=False, indent=4))
-    
-    def _process_message(self, update, chat_histories, user_info):
-        chat_id = str(update.message.chat.id)
+        
+
 
 async def main():
     if sys.version_info[0] >= 3:
