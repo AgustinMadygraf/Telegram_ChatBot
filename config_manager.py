@@ -1,6 +1,8 @@
 import os
 import json
 from dotenv import load_dotenv
+import logging
+import sys
 
 class ConfigManager:
     def __init__(self, config_file="config.json", setup_file="setup.json", default_model_path='E:\\Model _Explorer'):
@@ -41,3 +43,17 @@ class ConfigManager:
 
 # Ejemplo de uso
 config_manager = ConfigManager()
+
+def cargar_configuracion(ruta_archivo):
+    try:
+        with open(ruta_archivo, 'r') as config_file:
+            return json.load(config_file)
+    except FileNotFoundError:
+        logging.error(f"Archivo '{ruta_archivo}' no encontrado.")
+        sys.exit("Error: Archivo de configuración no encontrado.")
+    except json.JSONDecodeError:
+        logging.error(f"Error al decodificar '{ruta_archivo}'. Verifica el formato del archivo.")
+        sys.exit("Error: Formato de archivo de configuración inválido.")
+    except Exception as e:
+        logging.error(f"Error inesperado al cargar '{ruta_archivo}': {e}")
+        sys.exit("Error inesperado al cargar la configuración.")

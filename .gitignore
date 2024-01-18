@@ -6,3 +6,5 @@ listado_telegram_chatbot.txt
 mejoras.txt
 .env
 logs/app.log
+AMIS/
+AMIS/00-Prompt-for-ProjectAnalysis.md
