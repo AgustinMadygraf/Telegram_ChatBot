@@ -1,0 +1,156 @@
+2024-01-10 10:49:47,231 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 10:49:47,231 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 10:49:49,461 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 10:49:49,461 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:04:39,090 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:04:39,090 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:04:41,580 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:04:41,580 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:05:39,245 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:05:39,245 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:05:41,416 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:05:41,416 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:10:11,806 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:10:11,806 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-10 14:10:14,825 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:10:14,825 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:26:18,415 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:26:18,415 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 14:49:34,914 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1701: invalid continuation byte
+2024-01-10 14:49:34,914 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1701: invalid continuation byte
+2024-01-10 19:46:27,775 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 19:46:27,775 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1707: invalid continuation byte
+2024-01-10 19:47:26,398 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:47:26,398 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:48:25,996 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:48:25,996 - ERROR - Error inesperado al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:53:43,641 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:53:43,641 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:57:48,088 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 19:57:48,088 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:00:50,778 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:00:50,778 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:08:39,551 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:08:39,551 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:16:14,670 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:16:14,670 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:33:47,408 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:33:47,408 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:39:32,336 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 20:39:32,336 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 1503: invalid continuation byte
+2024-01-10 23:19:05,239 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 370: invalid continuation byte
+2024-01-10 23:19:05,239 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xf3 in position 370: invalid continuation byte
+2024-01-10 23:19:08,090 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:19:08,090 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:20:18,643 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:20:18,643 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:20:21,522 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:20:21,522 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:23:19,855 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:23:19,855 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:23:22,691 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:23:22,691 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:24:39,898 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:24:39,898 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:30:33,719 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:30:33,719 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 211: invalid continuation byte
+2024-01-10 23:30:40,372 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:30:40,372 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:31:49,688 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 212: invalid continuation byte
+2024-01-10 23:31:49,688 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 212: invalid continuation byte
+2024-01-10 23:31:51,969 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:31:51,969 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:35:26,574 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 212: invalid continuation byte
+2024-01-10 23:35:26,574 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xe9 in position 212: invalid continuation byte
+2024-01-10 23:42:58,654 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-10 23:42:58,654 - ERROR - Error de codificación al leer el archivo data/context_window_telegram.json: 'utf-8' codec can't decode byte 0xbf in position 128: invalid start byte
+2024-01-11 00:28:14,441 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:28:14,441 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:28:22,190 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:28:22,190 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:33:44,707 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:33:44,707 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:33:51,849 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:33:51,849 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:39:49,491 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:39:49,491 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:39:57,281 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:39:57,281 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:04,384 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:04,384 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:11,423 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:11,423 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:18,913 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:18,913 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:25,956 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:25,956 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:33,082 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:33,082 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:40,305 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:40,305 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:48,022 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:48,022 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:55,757 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:40:55,757 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:41:02,849 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:41:02,849 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:00,279 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:00,279 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:07,304 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:07,304 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:14,395 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:14,395 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:21,567 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:21,567 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:28,609 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:28,609 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:35,703 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 00:42:35,703 - ERROR - Error en procesar_mensajes: -1
+2024-01-11 01:36:10,091 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:36:10,091 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:36:11,935 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:36:11,935 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:36:15,842 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:36:15,842 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:36:17,863 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:36:17,863 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:37:51,439 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:37:51,439 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:37:53,305 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:37:53,305 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:38:12,761 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:38:12,761 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:38:14,716 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:38:14,716 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:38:58,031 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:38:58,031 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:38:59,899 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:38:59,899 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:40:00,490 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:40:00,490 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:40:02,191 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:40:02,191 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:43:31,714 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:43:31,714 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:43:33,733 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:43:33,733 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:43:56,677 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:43:56,677 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:43:58,357 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:43:58,357 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:44:11,827 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:44:11,827 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:44:13,527 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:44:13,527 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:44:35,383 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:44:35,383 - ERROR - Error al procesar la respuesta con el modelo IA: module 'config' has no attribute 'CHAT_HISTORY_PATH'
+2024-01-11 01:44:37,313 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:44:37,313 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:57:21,608 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 01:57:21,608 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:01:04,966 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:01:04,966 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:08:22,640 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:08:22,640 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:12:35,732 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots
+2024-01-11 02:12:35,732 - ERROR - Error de la API de Telegram al enviar mensaje: Forbidden: bot can't send messages to bots

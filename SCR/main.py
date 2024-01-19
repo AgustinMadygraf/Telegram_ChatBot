@@ -17,8 +17,6 @@ config_manager = ConfigManager()  # Instancia del nuevo gestor de configuracione
 
 setup_logging()
 
-
-
 async def main():
     config = inicializar_logger_y_configuracion()
     logging.info("Inicio del programa")
@@ -28,23 +26,8 @@ async def main():
     logging.info(f"El archivo seleccionado para trabajar es: {config['chat_history_path']}")
     user_id_str = str(593052206)
     i = 2
-
-
-
     respuesta_rapida, ram_seleccionada = obtener_opciones_usuario(config)
-    modelos_a_mostrar = config['models_available'].get(ram_seleccionada, [])
-    if modelos_a_mostrar:
-        logging.info(f"Modelos disponibles para RAM de {ram_seleccionada} seleccionada:")
-        for idx, modelo in enumerate(modelos_a_mostrar, 1):
-            logging.info(f"{idx}. {modelo}")
-    seleccion_numero = input("\nSelecciona el número del modelo: ")
-    if seleccion_numero.isdigit() and 1 <= int(seleccion_numero) <= len(modelos_a_mostrar):
-        seleccion_modelo = modelos_a_mostrar[int(seleccion_numero) - 1]
-    else:
-        seleccion_modelo = modelos_a_mostrar[0]
-
-
-
+    seleccion_modelo = seleccionar_modelo(config, ram_seleccionada)
     if seleccion_modelo:
         model = inicializar_modelo_ia(config, seleccion_modelo)
         if model:
@@ -68,7 +51,6 @@ async def main():
                             seg += 1
 
                         await TelegramChatArchiver.main()
-
         else:
             logging.warning("No se pudo inicializar el modelo.")
     else:
@@ -124,7 +106,16 @@ def inicializar_modelo_ia(config, seleccion_modelo):
         logging.error(f"Error al inicializar el modelo: {e}")
         return None
 
-
+def seleccionar_modelo(config, ram_seleccionada):
+    modelos_a_mostrar = config['models_available'].get(ram_seleccionada, [])
+    if modelos_a_mostrar:
+        logging.info(f"Modelos disponibles para RAM de {ram_seleccionada} seleccionada:")
+        for idx, modelo in enumerate(modelos_a_mostrar, 1):
+            logging.info(f"{idx}. {modelo}")
+        seleccion_numero = input("\nSelecciona el número del modelo: ")
+        if seleccion_numero.isdigit() and 1 <= int(seleccion_numero) <= len(modelos_a_mostrar):
+            return modelos_a_mostrar[int(seleccion_numero) - 1]
+    return None
 
 if __name__ == '__main__':
     asyncio.run(main())
