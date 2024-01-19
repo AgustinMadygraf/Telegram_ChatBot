@@ -6,6 +6,22 @@ import logging
 import time
 
 async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida):
+    """
+    Ejecuta el ciclo principal de procesamiento de mensajes para el chatbot.
+
+    Esta función maneja el flujo principal de interacción con el usuario a través del chatbot. Incluye la recepción 
+    de mensajes, el procesamiento de respuestas y el envío de respuestas. Utiliza un modelo de IA para generar respuestas.
+
+    Parámetros:
+    model (GPT4All): Modelo de IA utilizado para generar respuestas.
+    config (dict): Configuración del bot, incluyendo las plantillas del sistema.
+    user_id_str (str): Identificador del usuario como cadena.
+    seleccion_modelo (str): Modelo de IA seleccionado.
+    respuesta_rapida (bool): Indica si se debe utilizar una respuesta rápida o detallada.
+
+    Retorna:
+    None
+    """
     i = 2
     seg = 5
     with model.chat_session(config['system_templates'][0]['template']):

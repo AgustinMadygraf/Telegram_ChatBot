@@ -1,26 +1,29 @@
-import telegram
-import os
+#TelegramChatArchiver.py
 import telegram
 import os
 import sys
 import asyncio
-import logging
 from bot.archiver import cargar_datos_existentes
-from shared_utils import datetime_to_unixtime, cargar_json, guardar_json
+from shared_utils import datetime_to_unixtime
 from dotenv import load_dotenv
 import time
+from config_manager import ConfigManager
+from logs.config_logger import configurar_logging
+import logging
 import aiofiles
 import json
-from config_manager import ConfigManager
 
 config_manager = ConfigManager()
+logger = configurar_logging()
 
 token_telegram = config_manager.telegram_token
 
 
 load_dotenv()  # Carga las variables de entorno del archivo .env
 
+
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 MAX_REINTENTOS = 5  
 
@@ -29,13 +32,13 @@ def manejo_excepciones_telegram(func):
         try:
             return await func(*args, **kwargs)
         except telegram.error.NetworkError:
-            logging.error("Error de red en Telegram.")
+            logger.error("Error de red en Telegram.")
         except telegram.error.TimedOut:
-            logging.error("Tiempo de espera agotado en Telegram.")
+            logger.error("Tiempo de espera agotado en Telegram.")
         except telegram.error.TelegramError as e:
-            logging.error(f"Error general de la API de Telegram: {e}")
+            logger.error(f"Error general de la API de Telegram: {e}")
         except Exception as e:
-            logging.error(f"Error inesperado en {func.__name__}: {e}")
+            logger.error(f"Error inesperado en {func.__name__}: {e}")
         return []
     return wrapper
 
@@ -71,16 +74,16 @@ class TelegramArchiver:
             async with self.bot:
                 return await self.bot.get_updates(timeout=60)
         except telegram.error.TimedOut as e:
-            logging.warning(f"Tiempo de espera agotado al intentar obtener actualizaciones: {e}")
+            logger.warning(f"Tiempo de espera agotado al intentar obtener actualizaciones: {e}")
             return []
         except telegram.error.NetworkError as e:
-            logging.error(f"Error de red al intentar obtener actualizaciones: {e}")
+            logger.error(f"Error de red al intentar obtener actualizaciones: {e}")
             return []
         except telegram.error.TelegramError as e:
-            logging.error(f"Error de la API de Telegram: {e}")
+            logger.error(f"Error de la API de Telegram: {e}")
             return []
         except Exception as e:
-            logging.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
+            logger.error(f"Error inesperado al obtener actualizaciones de Telegram: {e}")
             return []
 
     async def process_updates(self, updates):
@@ -95,8 +98,6 @@ class TelegramArchiver:
 
         # Guardar el historial después de procesar todas las actualizaciones
         await self.save_chat_history(chat_histories, user_info)
-
-        return chat_histories, user_info
 
         return chat_histories, user_info
 
@@ -128,19 +129,48 @@ class TelegramArchiver:
                 "id": user.id
             }
         except Exception as e:
-            logging.error(f"Error al procesar el mensaje de Telegram: {e}")
+            logger.error(f"Error al procesar el mensaje de Telegram: {e}")
 
     async def save_chat_history(self, chat_histories, user_info):
-        logging.info("Guardando historial del chat en archivo JSON")
+
+        """
+        Guarda asincrónicamente el historial del chat y la información del usuario en un archivo JSON.
+
+        Esta función utiliza aiofiles para operaciones de E/S asíncronas, permitiendo escribir el historial del chat 
+        y la información del usuario en un archivo JSON sin bloquear el loop de eventos. Asegura que los datos se 
+        guarden de manera estructurada y legible.
+
+        Parámetros:
+        chat_histories (dict): Un diccionario que contiene el historial de chat.
+        user_info (dict): Un diccionario que contiene información sobre los usuarios.
+
+        Retorna:
+        None
+        """
+        logger.info("Guardando historial del chat en archivo JSON")
         async with aiofiles.open(self.chat_history_path, mode='w', encoding='utf-8') as file:
             await file.write(json.dumps({
                 "chat_histories": chat_histories,
                 "user_info": user_info
             }, ensure_ascii=False, indent=4))
-        logging.info("Historial del chat guardado exitosamente")
+        logger.info("Historial del chat guardado exitosamente")
+
 
 
 async def main():
+    """
+    Función principal para iniciar el proceso de archivado de chats de Telegram.
+
+    Esta función configura el entorno para admitir la codificación UTF-8, inicializa el archivador de Telegram 
+    y procesa las actualizaciones de mensajes recibidas. Gestiona la recopilación, procesamiento y almacenamiento 
+    del historial de chat de Telegram.
+
+    Se asegura de que el entorno de ejecución soporte la codificación correcta y utiliza el token de Telegram 
+    y la ruta de historial de chat proporcionados por el config_manager.
+
+    Retorna:
+    None
+    """
     if sys.version_info[0] >= 3:
         sys.stdout.reconfigure(encoding='utf-8')
 
@@ -150,13 +180,13 @@ async def main():
 
     archiver = TelegramArchiver(token_telegram, chat_history_path)
     updates = await archiver.get_updates()
-    logging.info("Actualizaciones de Telegram recibidas")
+    logger.info("Actualizaciones de Telegram recibidas")
 
     chat_histories, user_info = await archiver.process_updates(updates)
-    logging.info("Procesando actualizaciones de Telegram")
+    logger.info("Procesando actualizaciones de Telegram")
 
     await archiver.save_chat_history(chat_histories, user_info)
-    logging.info("Historial del chat guardado en archivo JSON")
+    logger.info("Historial del chat guardado en archivo JSON")
 
 if __name__ == '__main__':
     asyncio.run(main())

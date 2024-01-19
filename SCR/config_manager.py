@@ -2,11 +2,25 @@ import os
 import json
 from dotenv import load_dotenv
 import sys
-from utils.logger import setup_logging
 from bot.utils import limpiar_pantalla
 from logs.config_logger import configurar_logging
 
 logger = configurar_logging()
+
+def inicializar_entorno():
+    """
+    Inicializa el entorno para la ejecución del chatbot de Telegram.
+
+    Esta función configura el sistema de logging y carga la configuración inicial del bot. 
+    La configuración se carga principalmente desde un archivo JSON. La función también 
+    puede incluir pasos adicionales necesarios para preparar el entorno de ejecución, 
+    como la limpieza de la pantalla de la consola.
+
+    Retorna:
+    dict: Un diccionario que contiene la configuración cargada del bot.
+    """
+    #limpiar_pantalla()
+    return cargar_configuracion_inicial()
 
 
 class ConfigManager:
@@ -46,9 +60,7 @@ class ConfigManager:
             return '### System:\nConfiguración por defecto.'
         return '### System:\nConfiguración por defecto.'
 
-setup_logging()
 
-# Ejemplo de uso
 config_manager = ConfigManager()
 
 def cargar_configuracion(ruta_archivo):
@@ -66,7 +78,6 @@ def cargar_configuracion(ruta_archivo):
         sys.exit("Error inesperado al cargar la configuración.")
 
 def inicializar_entorno():
-    setup_logging()
     #limpiar_pantalla()
     return cargar_configuracion_inicial()
 

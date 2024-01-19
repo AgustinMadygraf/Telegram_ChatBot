@@ -10,6 +10,19 @@ config_manager = ConfigManager()
 logger = configurar_logging()
 
 async def main():
+    """
+    Función principal para iniciar el chatbot de Telegram.
+
+    Esta función se encarga de inicializar el entorno de ejecución, configurar la sesión de usuario y 
+    gestionar el ciclo principal de ejecución del chatbot. Incluye la configuración de logging, la obtención de 
+    opciones de usuario, la selección del modelo de IA y la ejecución del ciclo principal de mensajes.
+
+    Parámetros:
+    Ninguno
+
+    Retorna:
+    None
+    """
     config = inicializar_entorno()
     logger.info("Inicio del programa")
     logger.info(f"Versión de Python: {sys.version}")
