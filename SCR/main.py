@@ -1,20 +1,20 @@
 #main.py
-import time
 import sys
 import asyncio
-from gpt4all import GPT4All
-import logging
 from config_manager import ConfigManager, inicializar_entorno
 from cycle_manager import ejecutar_ciclo_principal
+from user_interaction_manager import obtener_opciones_usuario, seleccionar_modelo, inicializar_modelo_ia
+from logs.config_logger import configurar_logging
 
 config_manager = ConfigManager()  
+logger = configurar_logging()
 
 async def main():
     config = inicializar_entorno()
-    logging.info("Inicio del programa")
-    logging.info(f"Versión de Python: {sys.version}")
-    logging.info("Inicializando...")
-    logging.info(f"El archivo seleccionado para trabajar es: {config['chat_history_path']}")
+    logger.info("Inicio del programa")
+    logger.info(f"Versión de Python: {sys.version}")
+    logger.info("Inicializando...")
+    logger.info(f"El archivo seleccionado para trabajar es: {config['chat_history_path']}")
     user_id_str = str(593052206)
     i = 2
     respuesta_rapida, ram_seleccionada = obtener_opciones_usuario(config)
@@ -24,57 +24,9 @@ async def main():
         if model:
             await ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida)
         else:
-            logging.warning("No se pudo inicializar el modelo.")
+            logger.warning("No se pudo inicializar el modelo.")
     else:
-        logging.warning("No se ha inicializado ningún modelo.")
-
-def obtener_opciones_usuario(config):
-    print("Elige el modo de respuesta del bot:")
-    print("1. Respuesta rápida (ventana de contexto limitada a la última pregunta)")
-    print("2. Respuesta detallada (ventana de contexto ampliada a todo el historial)")
-    modo_respuesta = input("Selecciona una opción (1 o 2): ")
-    if modo_respuesta not in ["1", "2"]:
-        print("Selección inválida. Usando modo de respuesta rápida por defecto.")
-        modo_respuesta = "1"
-
-    respuesta_rapida = modo_respuesta == "1"
-
-    opcion_ram = input("Selecciona la capacidad de tu memoria RAM: 1 (1 GB), 2 (4 GB), 3 (8 GB), 4 (16 GB): \n")
-    if opcion_ram not in config['ram_options']:
-        opcion_ram = "2"
-    ram_seleccionada = config['ram_options'].get(opcion_ram)
-
-    return respuesta_rapida, ram_seleccionada
-
-def inicializar_modelo_ia(config, seleccion_modelo):
-    try:
-        inicio_carga = time.time()  # Iniciar el contador de tiempo
-        print("Inicializando modelo de IA...")
-        model = GPT4All(seleccion_modelo, config['model_path'])
-        fin_carga = time.time()  # Finalizar el contador de tiempo
-        tiempo_carga = fin_carga - inicio_carga  # Calcular la duración de la carga
-        logging.info(f"Modelo inicializado con éxito en {tiempo_carga:.2f} segundos.")
-        return model
-    except ValueError as e:
-        logging.error(f"Error al inicializar el modelo: {e}")
-        return None
-
-def seleccionar_modelo(config, ram_seleccionada):
-    modelos_a_mostrar = config['models_available'].get(ram_seleccionada, [])
-    if modelos_a_mostrar:
-        logging.info(f"Modelos disponibles para RAM de {ram_seleccionada} seleccionada:")
-        for idx, modelo in enumerate(modelos_a_mostrar, 1):
-            logging.info(f"{idx}. {modelo}")
-        while True:
-            try:
-                seleccion_numero = int(input("\nSelecciona el número del modelo: "))
-                if 1 <= seleccion_numero <= len(modelos_a_mostrar):
-                    return modelos_a_mostrar[seleccion_numero - 1]
-                else:
-                    print("Selección fuera de rango. Por favor intenta de nuevo.")
-            except ValueError:
-                print("Entrada inválida. Por favor ingresa un número.")
-    return None
+        logger.warning("No se ha inicializado ningún modelo.")
 
 if __name__ == '__main__':
     asyncio.run(main())

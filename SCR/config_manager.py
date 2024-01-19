@@ -1,10 +1,12 @@
 import os
 import json
 from dotenv import load_dotenv
-import logging
 import sys
 from utils.logger import setup_logging
 from bot.utils import limpiar_pantalla
+from logs.config_logger import configurar_logging
+
+logger = configurar_logging()
 
 
 class ConfigManager:
@@ -54,18 +56,18 @@ def cargar_configuracion(ruta_archivo):
         with open(ruta_archivo, 'r') as config_file:
             return json.load(config_file)
     except FileNotFoundError:
-        logging.error(f"Archivo '{ruta_archivo}' no encontrado.")
+        logger.error(f"Archivo '{ruta_archivo}' no encontrado.")
         sys.exit("Error: Archivo de configuración no encontrado.")
     except json.JSONDecodeError:
-        logging.error(f"Error al decodificar '{ruta_archivo}'. Verifica el formato del archivo.")
+        logger.error(f"Error al decodificar '{ruta_archivo}'. Verifica el formato del archivo.")
         sys.exit("Error: Formato de archivo de configuración inválido.")
     except Exception as e:
-        logging.error(f"Error inesperado al cargar '{ruta_archivo}': {e}")
+        logger.error(f"Error inesperado al cargar '{ruta_archivo}': {e}")
         sys.exit("Error inesperado al cargar la configuración.")
 
 def inicializar_entorno():
     setup_logging()
-    limpiar_pantalla()
+    #limpiar_pantalla()
     return cargar_configuracion_inicial()
 
 def cargar_configuracion_inicial():
@@ -74,21 +76,21 @@ def cargar_configuracion_inicial():
     Retorna un objeto de configuración.
     """
     # Configuración del logging
-    logging.info("Inicio del programa")
+    logger.info("Inicio del programa")
 
 
     # Cargar configuración desde un archivo JSON
     try:
         config = cargar_configuracion('config.json')
-        logging.info("Configuración cargada correctamente.")
+        logger.info("Configuración cargada correctamente.")
     except FileNotFoundError:
-        logging.error("Archivo 'config.json' no encontrado.")
+        logger.error("Archivo 'config.json' no encontrado.")
         sys.exit("Error: Archivo de configuración no encontrado.")
     except json.JSONDecodeError:
-        logging.error("Error al decodificar 'config.json'. Verifica el formato del archivo.")
+        logger.error("Error al decodificar 'config.json'. Verifica el formato del archivo.")
         sys.exit("Error: Formato de archivo de configuración inválido.")
     except Exception as e:
-        logging.error(f"Error inesperado al cargar 'config.json': {e}")
+        logger.error(f"Error inesperado al cargar 'config.json': {e}")
         sys.exit("Error inesperado al cargar la configuración.")
 
     return config
