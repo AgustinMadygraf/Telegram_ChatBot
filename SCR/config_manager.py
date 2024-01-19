@@ -3,6 +3,9 @@ import json
 from dotenv import load_dotenv
 import logging
 import sys
+from utils.logger import setup_logging
+from bot.utils import limpiar_pantalla
+
 
 class ConfigManager:
     def __init__(self, config_file="config.json", setup_file="setup.json", default_model_path='E:\\Model _Explorer'):
@@ -41,6 +44,8 @@ class ConfigManager:
             return '### System:\nConfiguración por defecto.'
         return '### System:\nConfiguración por defecto.'
 
+setup_logging()
+
 # Ejemplo de uso
 config_manager = ConfigManager()
 
@@ -58,4 +63,32 @@ def cargar_configuracion(ruta_archivo):
         logging.error(f"Error inesperado al cargar '{ruta_archivo}': {e}")
         sys.exit("Error inesperado al cargar la configuración.")
 
+def inicializar_entorno():
+    setup_logging()
+    limpiar_pantalla()
+    return cargar_configuracion_inicial()
 
+def cargar_configuracion_inicial():
+    """
+    Inicializa y carga la configuración inicial del programa.
+    Retorna un objeto de configuración.
+    """
+    # Configuración del logging
+    logging.info("Inicio del programa")
+
+
+    # Cargar configuración desde un archivo JSON
+    try:
+        config = cargar_configuracion('config.json')
+        logging.info("Configuración cargada correctamente.")
+    except FileNotFoundError:
+        logging.error("Archivo 'config.json' no encontrado.")
+        sys.exit("Error: Archivo de configuración no encontrado.")
+    except json.JSONDecodeError:
+        logging.error("Error al decodificar 'config.json'. Verifica el formato del archivo.")
+        sys.exit("Error: Formato de archivo de configuración inválido.")
+    except Exception as e:
+        logging.error(f"Error inesperado al cargar 'config.json': {e}")
+        sys.exit("Error inesperado al cargar la configuración.")
+
+    return config

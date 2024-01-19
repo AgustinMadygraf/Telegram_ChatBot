@@ -5,22 +5,16 @@ import sys
 import asyncio
 from gpt4all import GPT4All
 import TelegramChatArchiver
-from bot.utils import limpiar_pantalla
 from bot.bot import send_a
 from bot.processing import cargar_chat_history, procesar_respuesta
-from utils.logger import setup_logging
 import logging
-from config_manager import ConfigManager
-from config_manager import cargar_configuracion
+from config_manager import ConfigManager, inicializar_entorno, cargar_configuracion
 
-config_manager = ConfigManager()  # Instancia del nuevo gestor de configuraciones
-
-setup_logging()
+config_manager = ConfigManager()  
 
 async def main():
     config = inicializar_entorno()
     logging.info("Inicio del programa")
-    limpiar_pantalla()
     logging.info(f"Versión de Python: {sys.version}")
     logging.info("Inicializando...")
     logging.info(f"El archivo seleccionado para trabajar es: {config['chat_history_path']}")
@@ -36,11 +30,6 @@ async def main():
             logging.warning("No se pudo inicializar el modelo.")
     else:
         logging.warning("No se ha inicializado ningún modelo.")
-
-def inicializar_entorno():
-    setup_logging()
-    limpiar_pantalla()
-    return cargar_configuracion_inicial()
 
 async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida):
     i = 2
@@ -61,35 +50,6 @@ async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo,
                     time.sleep(1)
                 if seg < 6:
                     seg += 1
-
-def cargar_configuracion_inicial():
-    """
-    Inicializa y carga la configuración inicial del programa.
-    Retorna un objeto de configuración.
-    """
-    # Configuración del logging
-    setup_logging()
-    logging.info("Inicio del programa")
-
-    # Limpieza de la pantalla para mejorar la claridad de la salida
-    limpiar_pantalla()
-
-    # Cargar configuración desde un archivo JSON
-    try:
-        config = cargar_configuracion('config.json')
-        logging.info("Configuración cargada correctamente.")
-    except FileNotFoundError:
-        logging.error("Archivo 'config.json' no encontrado.")
-        sys.exit("Error: Archivo de configuración no encontrado.")
-    except json.JSONDecodeError:
-        logging.error("Error al decodificar 'config.json'. Verifica el formato del archivo.")
-        sys.exit("Error: Formato de archivo de configuración inválido.")
-    except Exception as e:
-        logging.error(f"Error inesperado al cargar 'config.json': {e}")
-        sys.exit("Error inesperado al cargar la configuración.")
-
-    return config
-
 
 def obtener_opciones_usuario(config):
     print("Elige el modo de respuesta del bot:")
@@ -138,7 +98,6 @@ def seleccionar_modelo(config, ram_seleccionada):
             except ValueError:
                 print("Entrada inválida. Por favor ingresa un número.")
     return None
-
 
 if __name__ == '__main__':
     asyncio.run(main())
