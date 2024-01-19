@@ -57,3 +57,5 @@ def cargar_configuracion(ruta_archivo):
     except Exception as e:
         logging.error(f"Error inesperado al cargar '{ruta_archivo}': {e}")
         sys.exit("Error inesperado al cargar la configuración.")
+
+

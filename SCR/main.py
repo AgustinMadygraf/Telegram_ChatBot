@@ -18,7 +18,7 @@ config_manager = ConfigManager()  # Instancia del nuevo gestor de configuracione
 setup_logging()
 
 async def main():
-    config = inicializar_logger_y_configuracion()
+    config = inicializar_entorno()
     logging.info("Inicio del programa")
     limpiar_pantalla()
     logging.info(f"Versión de Python: {sys.version}")
@@ -36,6 +36,11 @@ async def main():
             logging.warning("No se pudo inicializar el modelo.")
     else:
         logging.warning("No se ha inicializado ningún modelo.")
+
+def inicializar_entorno():
+    setup_logging()
+    limpiar_pantalla()
+    return cargar_configuracion_inicial()
 
 async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida):
     i = 2
@@ -57,16 +62,22 @@ async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo,
                 if seg < 6:
                     seg += 1
 
+def cargar_configuracion_inicial():
+    """
+    Inicializa y carga la configuración inicial del programa.
+    Retorna un objeto de configuración.
+    """
+    # Configuración del logging
+    setup_logging()
+    logging.info("Inicio del programa")
 
-def inicializar_logger_y_configuracion():
-    # Configuración del logger
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    
-    # Cargar configuración
+    # Limpieza de la pantalla para mejorar la claridad de la salida
+    limpiar_pantalla()
+
+    # Cargar configuración desde un archivo JSON
     try:
         config = cargar_configuracion('config.json')
         logging.info("Configuración cargada correctamente.")
-        return config
     except FileNotFoundError:
         logging.error("Archivo 'config.json' no encontrado.")
         sys.exit("Error: Archivo de configuración no encontrado.")
@@ -76,6 +87,9 @@ def inicializar_logger_y_configuracion():
     except Exception as e:
         logging.error(f"Error inesperado al cargar 'config.json': {e}")
         sys.exit("Error inesperado al cargar la configuración.")
+
+    return config
+
 
 def obtener_opciones_usuario(config):
     print("Elige el modo de respuesta del bot:")
