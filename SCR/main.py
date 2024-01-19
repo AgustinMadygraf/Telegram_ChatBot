@@ -31,30 +31,32 @@ async def main():
     if seleccion_modelo:
         model = inicializar_modelo_ia(config, seleccion_modelo)
         if model:
-            i = 2
-            seg = 5
-            with model.chat_session(config['system_templates'][0]['template']):
-                while True:
-                    await TelegramChatArchiver.main()
-                    chat_history, user_info, ultimo_rol = cargar_chat_history(config['chat_history_path'])
-                    logging.info(f"Último mensaje en la conversación: rol '{ultimo_rol}'")
-                    if ultimo_rol == "user":     
-                        seg = 5
-                        await send_a(593052206)  
-                        await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config['telegram_token'], respuesta_rapida)
-                    else:
-                        logging.info("Esperando consulta desde Telegram")
-                        for seg_temp in range(seg, 0, -1):
-                            print(f"Continuando en {seg_temp} segundos...", end="\r")
-                            time.sleep(1)
-                        if seg < 6:
-                            seg += 1
-
-                        await TelegramChatArchiver.main()
+            await ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida)
         else:
             logging.warning("No se pudo inicializar el modelo.")
     else:
         logging.warning("No se ha inicializado ningún modelo.")
+
+async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo, respuesta_rapida):
+    i = 2
+    seg = 5
+    with model.chat_session(config['system_templates'][0]['template']):
+        while True:
+            await TelegramChatArchiver.main()
+            chat_history, user_info, ultimo_rol = cargar_chat_history(config['chat_history_path'])
+            logging.info(f"Último mensaje en la conversación: rol '{ultimo_rol}'")
+            if ultimo_rol == "user":     
+                seg = 5
+                await send_a(593052206)  
+                await procesar_respuesta(chat_history, user_id_str, model, i, user_info, seleccion_modelo, config['telegram_token'], respuesta_rapida)
+            else:
+                logging.info("Esperando consulta desde Telegram")
+                for seg_temp in range(seg, 0, -1):
+                    print(f"Continuando en {seg_temp} segundos...", end="\r")
+                    time.sleep(1)
+                if seg < 6:
+                    seg += 1
+
 
 def inicializar_logger_y_configuracion():
     # Configuración del logger
@@ -112,10 +114,17 @@ def seleccionar_modelo(config, ram_seleccionada):
         logging.info(f"Modelos disponibles para RAM de {ram_seleccionada} seleccionada:")
         for idx, modelo in enumerate(modelos_a_mostrar, 1):
             logging.info(f"{idx}. {modelo}")
-        seleccion_numero = input("\nSelecciona el número del modelo: ")
-        if seleccion_numero.isdigit() and 1 <= int(seleccion_numero) <= len(modelos_a_mostrar):
-            return modelos_a_mostrar[int(seleccion_numero) - 1]
+        while True:
+            try:
+                seleccion_numero = int(input("\nSelecciona el número del modelo: "))
+                if 1 <= seleccion_numero <= len(modelos_a_mostrar):
+                    return modelos_a_mostrar[seleccion_numero - 1]
+                else:
+                    print("Selección fuera de rango. Por favor intenta de nuevo.")
+            except ValueError:
+                print("Entrada inválida. Por favor ingresa un número.")
     return None
+
 
 if __name__ == '__main__':
     asyncio.run(main())
