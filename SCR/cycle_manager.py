@@ -24,7 +24,7 @@ async def ejecutar_ciclo_principal(model, config, user_id_str, seleccion_modelo,
     """
     i = 2
     seg = 5
-    with model.chat_session(config['system_templates'][0]['template']):
+    with model.chat_session(config['system_templates'][1]['template']):
         while True:
             await TelegramChatArchiver.main()
             chat_history, user_info, ultimo_rol = cargar_chat_history(config['chat_history_path'])
